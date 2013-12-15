@@ -137,6 +137,7 @@ void MainWindow::setScene(void)
     ui->statusBar->showMessage(QString("%1 %2, %3 %4").arg(sizeX).arg(sizeY).arg(cellX).arg(cellY));
     scene = new QGraphicsScene(-ui->graphicsView->geometry().width()/2, -ui->graphicsView->geometry().height()/2,
                                ui->graphicsView->geometry().width()+10, ui->graphicsView->geometry().height());
+    scene->setSceneRect(0, 0, 800, 400);
     ui->graphicsView->setScene(scene);
     Cell * el;
     for(unsigned i = 0; i < sizeY; i++)
