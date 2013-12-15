@@ -111,9 +111,9 @@ void Game::tick()
 
     bool nowa[height][width];
 
-    for(int i = 0; i < this->height; i++)
+    for(int i = 0; i < int(this->height); i++)
     {
-        for(int j = 0; j < this->width; j++)
+        for(int j = 0; j < int(this->width); j++)
         {
             //petla dla sasiadow
             int iloscZywych = 0;
@@ -122,7 +122,7 @@ void Game::tick()
             {
                 for(int y = j - 1; y <= j + 1; y++)
                 {
-                    if(x >= 0 && x < this->height && y >= 0 && y < this->width && !(x == i && y == j))
+                    if(x >= 0 && x < int(this->height) && y >= 0 && y < int(this->width) && !(x == i && y == j))
                         if(this->map[x][y] == true)
                             iloscZywych++;
                     if(iloscZywych > 3)

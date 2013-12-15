@@ -54,6 +54,7 @@ void MainWindow::on_startButton_clicked()
         ui->loadButton->setEnabled(true);
         ui->saveButton->setEnabled(true);
         ui->graphicsView->setEnabled(true);
+        ui->onFlyCheckBox->setEnabled(true);
     }
     else
     {
@@ -64,7 +65,9 @@ void MainWindow::on_startButton_clicked()
         ui->sizeBox->setEnabled(false);
         ui->loadButton->setEnabled(false);
         ui->saveButton->setEnabled(false);
-        ui->graphicsView->setEnabled(false);
+        if(!ui->onFlyCheckBox->isChecked())
+            ui->graphicsView->setEnabled(false);
+        ui->onFlyCheckBox->setEnabled(false);
     }
 
 }
@@ -116,7 +119,7 @@ void MainWindow::makeTick()
    }
    else
    {
-       ui->statusBar->showMessage(QString("Symulacja zakonczona po %1 tickach.").arg(tick));
+       ui->statusBar->showMessage(QString::fromUtf8("Symulacja zakończona po %1 tickach.").arg(tick));
        if(timer && timer->isActive())
            ui->startButton->click();
    }
@@ -134,7 +137,6 @@ void MainWindow::setScene(void)
     ui->graphicsView->setGeometry(QRect(-800, -400, 800, 400));
     unsigned cellX = ui->graphicsView->geometry().width() / sizeX;
     unsigned cellY = ui->graphicsView->geometry().height() / sizeY;
-    ui->statusBar->showMessage(QString("%1 %2, %3 %4").arg(sizeX).arg(sizeY).arg(cellX).arg(cellY));
     scene = new QGraphicsScene(-ui->graphicsView->geometry().width()/2, -ui->graphicsView->geometry().height()/2,
                                ui->graphicsView->geometry().width()+10, ui->graphicsView->geometry().height());
     scene->setSceneRect(0, 0, 800, 400);
@@ -154,7 +156,7 @@ void MainWindow::setScene(void)
 void MainWindow::updateScene(void)
 {
     if(!game || !scene || !map)
-        ui->statusBar->showMessage("Cos nie wyszlo");
+        ui->statusBar->showMessage(QString::fromUtf8("Coś nie wyszło"));
     else
         for(unsigned i = 0; i < game->getHeight(); i++)
             for(unsigned j = 0; j < game->getWidth(); j++)
@@ -205,7 +207,7 @@ void MainWindow::on_loadButton_clicked()
     msg.setStandardButtons(QMessageBox::Ok);
 
     txt >> tmp;
-    if(tmp.toUInt() > 3)
+    if(tmp.toUInt() > 9)
     {
         msg.exec();
         return;
